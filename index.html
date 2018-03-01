@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 600px;
+        width: 100%;
+       }
+    </style>
+  </head>
+
+  <body>
+    <h3>SCU Google Maps Demo</h3>
+   <!--  <button type="button" onclick="runFunction()">Add point</button> -->
+    <input onclick="addCoordinate();" type=button value="Add coordinate">
+    <div id="map"></div>
+
+    <script>
+      const SCU = {lat: 25.039051, lng: 121.509885};
+      var poly;
+      var map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: SCU
+        });
+
+        var marker = new google.maps.Marker({
+          position: SCU,
+          map: map,
+          title: 'SCU'
+        });
+
+        var polylineCoordinates = [
+          SCU,
+          {lat: 25.038766, lng: 121.512665},
+          {lat: 25.037328, lng: 121.512750},
+          {lat: 25.035447, lng: 121.512498}
+        ];
+
+        poly = new google.maps.Polyline({
+          path: polylineCoordinates,
+          geodesic: true,
+          strokeColor: '#0000FF',
+          strokeOpacity: 1.0,
+          strokeWeight: 4
+        });
+
+        poly.setMap(map);
+
+      }
+
+      function addCoordinate() {
+        console.log("Exe addCoordinate()");
+        // get existing path
+        var path = poly.getPath();
+        // append a new coordinate
+        var newLocation = new google.maps.LatLng(25.035421, 121.513620);
+        path.push(newLocation);
+
+        // Add a new marker at the new plotted point on the polyline.
+        marker = new google.maps.Marker({
+          position: newLocation,
+          map: map
+        });
+      }
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs_Szom4am95qedz4852-6URPRCo7JGak&callback=initMap">
+    </script>
+
+  </body>
+</html>
