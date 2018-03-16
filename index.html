@@ -1,37 +1,80 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
     <style>
-       #map {
-        height: 600px;
-        width: 100%;
-       }
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
-
   <body>
-    <h3>SCU Google Maps Demo</h3>
-   <!--  <button type="button" onclick="runFunction()">Add point</button> -->
-    <input onclick="addCoordinate();" type=button value="Add coordinate">
     <div id="map"></div>
-
     <script>
-      const SCU = {lat: 25.039051, lng: 121.509885};
-      var poly;
-      var map;
+      const API_URL = 'http://60.250.171.48:8008/bikelist.ashx';
+      const INIT_ZOOM = 12;
+      var map, infowindow;
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
-          center: SCU
+          zoom: INIT_ZOOM,
+          center: {lat: 25.039051, lng: 121.509885}
         });
 
-        var marker = new google.maps.Marker({
-          position: SCU,
-          map: map,
-          title: 'SCU'
-        });
+        infowindow = new google.maps.InfoWindow();  
+        initData();
+      }
 
+      function initData() { 
+        fetch(API_URL, {method: 'get'})
+        .then(function(response) {
+          if (!response.ok) {
+            console.log('Fetch data error. Status Code: ' + response.status);
+            var error = new Error(response.statusText)
+            error.response = response
+            throw error
+          }
+          return response.json();
+
+        }).then(function(data) {
+          var vehicleLocations = data['RESULT'];
+          var markers = vehicleLocations.map(function(vehicle, i) {
+            console.log('vehicle data: ' + vehicle);
+            
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(vehicle['gps_lat'], vehicle['gps_long']),
+              map: map,
+              label: vehicle['bike_id']
+            });
+            marker.addListener('click', function() {
+              // map.setZoom(22);
+              map.setCenter(marker.getPosition());
+              infowindow.setContent(vehicle['bike_id']);
+              infowindow.open(map, marker);
+            });
+            return marker
+          });
+
+          // Add a marker clusterer to manage the markers.
+          var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        }).catch(function(err) {
+          console.log('Fetch Error :-S', err);
+        })
+      }
+      
+
+      function drawDrivingRoute() {
         var polylineCoordinates = [
           SCU,
           {lat: 25.038766, lng: 121.512665},
@@ -48,8 +91,7 @@
         });
 
         poly.setMap(map);
-
-      }
+      }  
 
       function addCoordinate() {
         console.log("Exe addCoordinate()");
@@ -66,10 +108,11 @@
         });
       }
     </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs_Szom4am95qedz4852-6URPRCo7JGak&callback=initMap">
     </script>
-
   </body>
 </html>
