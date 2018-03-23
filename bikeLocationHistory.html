@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Bike Location History</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <a href="index.html">Bike List</a>
+
+    <script>
+      const API_URL = 'http://60.250.171.48:8008/bikeInfo.ashx?bike_id=GWA_BL00est01PPP';
+      const INIT_ZOOM = 12;
+      var map, infowindow;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: INIT_ZOOM,
+          center: {lat: 25.039051, lng: 121.509885}
+        });
+
+        infowindow = new google.maps.InfoWindow();  
+        initData();
+      }
+      
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs_Szom4am95qedz4852-6URPRCo7JGak&callback=initMap">
+    </script>
+    <script type="text/javascript" src="js/bikeLocationHistory.js"></script>
+  </body>
+</html>
