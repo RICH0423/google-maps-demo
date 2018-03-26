@@ -1,10 +1,13 @@
 # google-maps-demo
 
 ## Dependencies
-- Using the Google Maps JavaScript API (Version 3)
-- google.maps.geometry library
+- [Google Maps JavaScript API - V3](https://developers.google.com/maps/documentation/javascript/)
+- [google.maps.geometry library](https://developers.google.com/maps/documentation/javascript/geometry) 
 
-### Marker
+
+---
+
+## Marker
 - Create a marker
 ```js
 function initMap() {
@@ -29,8 +32,8 @@ function initMap() {
 - Add a marker to the map
 ```js
 var marker = new google.maps.Marker({
-    position: myLatlng,
-    title:"Hello World!"
+  position: myLatlng,
+  title:"Hello World!"
 });
 
 marker.setMap(map);
@@ -41,6 +44,54 @@ marker.setMap(map);
 marker.setMap(null);
 ```
 
+## Shapes
+
+- Add a polyline
+```js
+var bikeCoordinates = [
+  {lat: 37.772, lng: -122.214},
+  {lat: 21.291, lng: -157.821}
+];
+
+var bikePath = new google.maps.Polyline({
+  path: bikeCoordinates,
+  geodesic: true,
+  strokeColor: '#FF0000',
+  strokeOpacity: 1.0,
+  strokeWeight: 2
+});
+
+bikePath.setMap(map);
+```
+
+- Remove a polyline
+```js
+bikePath.setMap(null);
+```
+
+- Adds a new point to the Polyline
+```js
+var path = bikePath.getPath();
+var newLocation = new google.maps.LatLng(25.035421, 121.513620);  // append a new coordinate
+path.push(newLocation);
+```
+- Add a circle
+```js
+var dummyStoreCircle = new google.maps.Circle({
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#0066FF',
+  fillOpacity: 0.20,
+  map: map,
+  center: {lat: 25.035060, lng: 121.383648},
+  radius: 3000  //specifies the radius of the circle, in meters
+});
+```
+
+## Geometry Library
+
 ## Reference
-- https://developers.google.com/maps/documentation/javascript/tutorial?hl=zh-tw
-- https://developers.google.com/maps/documentation/javascript/events?hl=zh-tw
+- https://developers.google.com/maps/documentation/javascript/tutorial
+- https://developers.google.com/maps/documentation/javascript/events
+- https://developers.google.com/maps/documentation/javascript/geometry
