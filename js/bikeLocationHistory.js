@@ -34,15 +34,18 @@ function initData() {
 
       });
 
+      // get the last vehicle from vehicleLocations
       var lastvehicleLocation = vehicleLocations.pop();
       console.log(lastvehicleLocation);
 
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lastvehicleLocation['gps_lat'], lastvehicleLocation['gps_long']),
         map: map,
+        icon: 'image/bicycle-rider.png',
         label: lastvehicleLocation['bike_id']
       });
 
+      // add click listener
       marker.addListener('click', function() {
         // map.setZoom(22);
         map.setCenter(marker.getPosition());
@@ -54,6 +57,16 @@ function initData() {
         center: new google.maps.LatLng(lastvehicleLocation['gps_lat'], lastvehicleLocation['gps_long']),
         zoom: 17
       });
+
+      var dummyStoreMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(DUMMY_STORE_POSITION),
+        map: map,
+        label: 'Store'
+      });
+
+      // compute the distance between two points
+      var distance = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), dummyStoreMarker.getPosition());       
+      document.getElementById('distance').value = distance;
     }).catch(function(err) {
       console.log('Fetch Error :-S', err);
     })
