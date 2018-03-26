@@ -72,7 +72,7 @@ bikePath.setMap(null);
 - Adds a new point to the Polyline
 ```js
 var path = bikePath.getPath();
-var newLocation = new google.maps.LatLng(25.035421, 121.513620);  // append a new coordinate
+var newLocation = new google.maps.LatLng(25.035421, 121.513620);  // append a new point
 path.push(newLocation);
 ```
 - Add a circle
@@ -85,7 +85,7 @@ var dummyStoreCircle = new google.maps.Circle({
   fillOpacity: 0.20,
   map: map,
   center: {lat: 25.035060, lng: 121.383648},
-  radius: 3000  //specifies the radius of the circle, in meters
+  radius: 3000  //radius of the circle (meters)
 });
 ```
 
