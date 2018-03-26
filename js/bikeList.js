@@ -38,18 +38,3 @@ function initData() {
       console.log('Fetch Error :-S', err);
     })
 }
-
-function addCoordinate() {
-  console.log("Exe addCoordinate()");
-  // get existing path
-  var path = poly.getPath();
-  // append a new coordinate
-  var newLocation = new google.maps.LatLng(25.035421, 121.513620);
-  path.push(newLocation);
-
-  // Add a new marker at the new plotted point on the polyline.
-  marker = new google.maps.Marker({
-    position: newLocation,
-    map: map
-  });
-}
