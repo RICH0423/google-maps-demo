@@ -41,7 +41,7 @@ function initData() {
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lastvehicleLocation['gps_lat'], lastvehicleLocation['gps_long']),
         map: map,
-        icon: 'image/bicycle-rider.png',
+        icon: 'images/bicycle-rider.png',
         label: lastvehicleLocation['bike_id']
       });
 
