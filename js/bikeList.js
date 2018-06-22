@@ -48,6 +48,7 @@ function initData() {
 
       // Add a marker clusterer to manage the markers.
       var markerCluster = new MarkerClusterer(map, markers, {
+        maxZoom: 20,
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
       });
     }).catch(function(err) {
