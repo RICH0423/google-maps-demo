@@ -91,7 +91,49 @@ var dummyStoreCircle = new google.maps.Circle({
 
 ## Geometry Library
 
+## Direction API
+
+- Create DirectionsService
+
+To use directions in the Maps JavaScript API, create an object of type DirectionsService 
+```js
+var directionsDisplay = new google.maps.DirectionsRenderer;
+```
+
+- Initiate directions request
+
+call DirectionsService.route() to initiate a request to the Directions service, passing it a DirectionsRequest object
+```js
+- Initiate request
+directionsService.route({
+  origin: origin,
+  destination: destination,
+  travelMode: google.maps.TravelMode[selectedMode]
+}, function(response, status) {
+  if (status == 'OK') {
+    console.log(response)
+    directionsDisplay.setDirections(response);
+  } else {
+    window.alert('Directions request failed due to ' + status);
+  }
+});
+```
+
+- Displaying the DirectionsResult
+The DirectionsResult contains the result of the directions query, which you may either handle yourself, or pass to a DirectionsRenderer object, which can automatically handle displaying the result on a map.
+
+To display a DirectionsResult using a DirectionsRenderer, you simply need to do the following:
+
+  - Create a DirectionsRenderer object.
+  - Call setMap() on the renderer to bind it to the passed map.
+  - Call setDirections() on the renderer, passing it the DirectionsResult as noted above. Because the renderer is an MVCObject, it will automatically detect any changes to its properties and update the map when its associated directions have changed.
+
+
+
+
+
 ## Reference
 - https://developers.google.com/maps/documentation/javascript/tutorial
 - https://developers.google.com/maps/documentation/javascript/events
 - https://developers.google.com/maps/documentation/javascript/geometry
+- https://developers.google.com/maps/documentation/javascript/directions#DrivingOptions

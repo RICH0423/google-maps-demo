@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>    
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<meta http-equiv="refresh" content="30"><!-- ¨C30¬í¨ê·s -->
+    <title>Bike Point</title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script>
+        //§ì¨úurl°Ñ¼Æ
+        var LocString=String(window.document.location.href);
+        function GetQueryString(str){
+            var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(LocString),tmp;
+            if(tmp=rs) return tmp[2];
+            return "µL¦¹°Ñ¼Æ";
+        }
+
+        const API_URL = 'http://60.250.171.48:8008/BikeList.ashx?bike_id=BLE_GWAtest02PPP';
+        const INIT_ZOOM = 12;
+        var map, infowindow;
+
+        function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: INIT_ZOOM,
+            center: {lat: 25.108061, lng: 118.941542}
+        });
+
+        infowindow = new google.maps.InfoWindow(); 
+        initData();
+    }
+
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs_Szom4am95qedz4852-6URPRCo7JGak&callback=initMap">
+    </script>
+    <script type="text/javascript" src="js/bikePoint.js"></script>
+  </body>
+</html>
