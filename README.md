@@ -135,4 +135,4 @@ To display a DirectionsResult using a DirectionsRenderer, you simply need to do 
 - https://developers.google.com/maps/documentation/javascript/tutorial
 - https://developers.google.com/maps/documentation/javascript/events
 - https://developers.google.com/maps/documentation/javascript/geometry
-- https://developers.google.com/maps/documentation/javascript/directions#DrivingOptions
+- https://developers.google.com/maps/documentation/javascript/directions
