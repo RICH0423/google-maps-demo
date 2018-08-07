@@ -104,7 +104,6 @@ var directionsDisplay = new google.maps.DirectionsRenderer;
 
 call DirectionsService.route() to initiate a request to the Directions service, passing it a DirectionsRequest object
 ```js
-- Initiate request
 directionsService.route({
   origin: origin,
   destination: destination,
@@ -124,9 +123,9 @@ The DirectionsResult contains the result of the directions query, which you may 
 
 To display a DirectionsResult using a DirectionsRenderer, you simply need to do the following:
 
-  - Create a DirectionsRenderer object.
-  - Call setMap() on the renderer to bind it to the passed map.
-  - Call setDirections() on the renderer, passing it the DirectionsResult as noted above. Because the renderer is an MVCObject, it will automatically detect any changes to its properties and update the map when its associated directions have changed.
+    - Create a DirectionsRenderer object.
+    - Call setMap() on the renderer to bind it to the passed map.
+    - Call setDirections() on the renderer, passing it the DirectionsResult as noted above. Because the renderer is an MVCObject, it will automatically detect any changes to its properties and update the map when its associated directions have changed.
 
 
 
